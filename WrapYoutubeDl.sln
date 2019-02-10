@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrapYoutubeDl", "WrapYoutubeDl\WrapYoutubeDl.csproj", "{E3BA1768-F7AC-45C1-813E-B6C6362E126A}"
 EndProject
@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Binaries\ffprobe.exe = Binaries\ffprobe.exe
 		Binaries\youtube-dl.exe = Binaries\youtube-dl.exe
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrapYoutubeDl.NetCoreExtensions", "WrapYoutubeDl.NetCoreExtensions\WrapYoutubeDl.NetCoreExtensions.csproj", "{0DDABB67-AA73-428D-8B33-F843D3C1F419}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,8 +31,15 @@ Global
 		{C564E899-98C0-4261-87E9-6481FA929722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C564E899-98C0-4261-87E9-6481FA929722}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C564E899-98C0-4261-87E9-6481FA929722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDABB67-AA73-428D-8B33-F843D3C1F419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDABB67-AA73-428D-8B33-F843D3C1F419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDABB67-AA73-428D-8B33-F843D3C1F419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DDABB67-AA73-428D-8B33-F843D3C1F419}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {772FF7E8-476C-426D-A094-E91FA4139A75}
 	EndGlobalSection
 EndGlobal

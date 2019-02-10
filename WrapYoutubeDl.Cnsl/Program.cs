@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace WrapYoutubeDl.Cnsl
 {
@@ -12,9 +13,9 @@ namespace WrapYoutubeDl.Cnsl
 		static void Main(string[] args)
 		{
 
-			var mp3OutputFolder = "c:/@mp3/";
+			var mp3OutputFolder = Path.Combine(Directory.GetCurrentDirectory(), "Audio");
 
-			var downloader = new AudioDownloader("https://www.youtube.com/watch?v=clhvCRwUjD4", Guid.NewGuid().ToString(), mp3OutputFolder);
+			var downloader = new AudioDownloader(Path.Combine(Directory.GetCurrentDirectory(), "Binaries"), "https://www.youtube.com/watch?v=enBllfqkMEw", Guid.NewGuid().ToString(), mp3OutputFolder);
 			downloader.ProcessObject = new song();
 			downloader.ProgressDownload += downloader_ProgressDownload;
 			downloader.FinishedDownload += downloader_FinishedDownload;

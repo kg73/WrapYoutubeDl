@@ -27,7 +27,7 @@ namespace WrapYoutubeDl.Cnsl
 			downloader.ProcessObject = new song();
 			downloader.ProgressDownload += downloader_ProgressDownload;
 			downloader.FinishedDownload += downloader_FinishedDownload;
-			downloader.Download("https://www.youtube.com/watch?v=enBllfqkMEw", Path.Combine(mp3OutputFolder, Guid.NewGuid().ToString()));
+			downloader.Download();
 
 
 			Console.ReadLine();

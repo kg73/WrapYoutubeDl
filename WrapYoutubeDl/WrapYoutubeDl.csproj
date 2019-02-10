@@ -4,5 +4,6 @@
 		<PackageId>kg73.WrapYoutubeDl</PackageId>
 		<Title>WrapYoutubeDl .NET Standard</Title>
 		<Description>WrapYoutubeDl updated for .NET Standard</Description>
+		<NuspecProperties>version=$(Version)</NuspecProperties>
 	</PropertyGroup>
 </Project>

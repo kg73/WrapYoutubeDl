@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -63,7 +59,8 @@ namespace WrapYoutubeDl
 			{
 				throw new Exception(destinationPath + " exists");
 			}
-			var arguments = string.Format(@"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {0} -o ""{1}""", options.Url, destinationPath);  //--ignore-errors
+
+			var arguments = $"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {options.Url} -o \"{destinationPath}\""; //--ignore-errors
 
 			// setup the process that will fire youtube-dl
 			Process = new Process();
@@ -107,7 +104,7 @@ namespace WrapYoutubeDl
 			ErrorDownload?.Invoke(this, e);
 		}
 
-		public void Download()
+		public async Task Download()
 		{
 			Console.WriteLine("Downloading {0}", Url);
 			Process.Exited += Process_Exited;
@@ -116,7 +113,7 @@ namespace WrapYoutubeDl
 			this.OnDownloadStarted(new DownloadEventArgs() { ProcessObject = this.ProcessObject });
 			while (this.Finished == false)
 			{
-				System.Threading.Thread.Sleep(100);                   // wait while process exits;
+				await Task.Delay(100); // wait while process exits;
 			}
 		}
 

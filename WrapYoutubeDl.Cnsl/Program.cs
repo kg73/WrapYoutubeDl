@@ -15,7 +15,15 @@ namespace WrapYoutubeDl.Cnsl
 
 			var mp3OutputFolder = Path.Combine(Directory.GetCurrentDirectory(), "Audio");
 
-			var downloader = new AudioDownloader(Path.Combine(Directory.GetCurrentDirectory(), "Binaries"), "https://www.youtube.com/watch?v=enBllfqkMEw", Guid.NewGuid().ToString(), mp3OutputFolder);
+			var options = new YoutubeAudioDownloaderOptions()
+			{
+				BinaryPath = Path.Combine(Directory.GetCurrentDirectory(), "Binaries"),
+				Url = "https://www.youtube.com/watch?v=enBllfqkMEw",
+				OutputName = Guid.NewGuid().ToString(),
+				OutputFolder = mp3OutputFolder
+			};
+
+			var downloader = new YoutubeAudioDownloader(options);
 			downloader.ProcessObject = new song();
 			downloader.ProgressDownload += downloader_ProgressDownload;
 			downloader.FinishedDownload += downloader_FinishedDownload;

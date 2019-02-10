@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WrapYoutubeDl
 {
-	public class AudioDownloader
+	public class YoutubeAudioDownloader
 	{
 		public delegate void ProgressEventHandler(object sender, ProgressEventArgs e);
 		public event ProgressEventHandler ProgressDownload;
@@ -35,42 +35,42 @@ namespace WrapYoutubeDl
 		public string ConsoleLog { get; set; }
 
 
-		public AudioDownloader(string binaryPath, string url, string outputName, string outputfolder)
+		public YoutubeAudioDownloader(YoutubeAudioDownloaderOptions options)
 		{
 			this.Started = false;
 			this.Finished = false;
 			this.Percentage = 0;
 
-			DestinationFolder = outputfolder;
-			Url = url;
+			DestinationFolder = options.OutputFolder;
+			Url = options.Url;
 
 			// make sure filename ends with an mp3 extension
-			OutputName = outputName;
+			OutputName = options.OutputName;
 			if (!OutputName.ToLower().EndsWith(".mp3"))
 			{
 				OutputName += ".mp3";
 			}
 
 			// this is the path where you keep the binaries (ffmpeg, youtube-dl etc)
-			if (string.IsNullOrEmpty(binaryPath))
+			if (string.IsNullOrEmpty(options.BinaryPath))
 			{
 				throw new Exception("Cannot read 'binaryfolder' variable from app.config / web.config.");
 			}
 
 			// if the destination file exists, exit
-			var destinationPath = System.IO.Path.Combine(outputfolder, OutputName);
+			var destinationPath = System.IO.Path.Combine(options.OutputFolder, OutputName);
 			if (System.IO.File.Exists(destinationPath))
 			{
 				throw new Exception(destinationPath + " exists");
 			}
-			var arguments = string.Format(@"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {0} -o ""{1}""", url, destinationPath);  //--ignore-errors
+			var arguments = string.Format(@"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {0} -o ""{1}""", options.Url, destinationPath);  //--ignore-errors
 
 			// setup the process that will fire youtube-dl
 			Process = new Process();
 			Process.StartInfo.UseShellExecute = false;
 			Process.StartInfo.RedirectStandardOutput = true;
 			Process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-			Process.StartInfo.FileName = System.IO.Path.Combine(binaryPath, "youtube-dl.exe");
+			Process.StartInfo.FileName = System.IO.Path.Combine(options.BinaryPath, "youtube-dl.exe");
 			Process.StartInfo.Arguments = arguments;
 			Process.StartInfo.CreateNoWindow = true;
 			Process.EnableRaisingEvents = true;

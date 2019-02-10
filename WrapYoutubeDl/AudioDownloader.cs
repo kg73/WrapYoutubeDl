@@ -57,13 +57,7 @@ namespace WrapYoutubeDl
 				throw new Exception("Cannot read 'binaryfolder' variable from app.config / web.config.");
 			}
 
-			// if the destination file exists, exit
-			var destinationPath = System.IO.Path.Combine(options.OutputFolder, OutputName);
-			if (System.IO.File.Exists(destinationPath))
-			{
-				throw new Exception(destinationPath + " exists");
-			}
-			var arguments = string.Format(@"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {0} -o ""{1}""", options.Url, destinationPath);  //--ignore-errors
+			
 
 			// setup the process that will fire youtube-dl
 			Process = new Process();
@@ -71,7 +65,6 @@ namespace WrapYoutubeDl
 			Process.StartInfo.RedirectStandardOutput = true;
 			Process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 			Process.StartInfo.FileName = System.IO.Path.Combine(options.BinaryPath, "youtube-dl.exe");
-			Process.StartInfo.Arguments = arguments;
 			Process.StartInfo.CreateNoWindow = true;
 			Process.EnableRaisingEvents = true;
 
@@ -107,9 +100,17 @@ namespace WrapYoutubeDl
 			ErrorDownload?.Invoke(this, e);
 		}
 
-		public void Download()
+		public void Download(string youtubeUrl, string destinationPath)
 		{
+			// if the destination file exists, delete it
+			if (System.IO.File.Exists(destinationPath))
+			{
+				System.IO.File.Delete(destinationPath);
+			}
+
 			Console.WriteLine("Downloading {0}", Url);
+			var arguments = $@"--continue  --no-overwrites --restrict-filenames --extract-audio --audio-format mp3 {youtubeUrl} -o ""{destinationPath}""";  //--ignore-errors
+			Process.StartInfo.Arguments = arguments;
 			Process.Exited += Process_Exited;
 			Process.Start();
 			Process.BeginOutputReadLine();
